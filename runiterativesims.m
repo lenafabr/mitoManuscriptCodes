@@ -18,6 +18,8 @@ opt.avgmitoden=0.3; % mitochondrial density, #/length^3
 % default is to start linear
 opt.startgluc = [];
 
+% use the infinite ks limit
+opt.highks = 0;
 
 opt.gpts = 100; % number of discrete spatial points for evaluating gluc concentration
 opt.delt = 1e-5; % time-step
@@ -96,9 +98,9 @@ while (normdtg > dtcutoff)
     ksx = ksh * gluc ./ (Kmh + gluc);    
     ksx_int = dx/2 * (ksx(1) + ksx(end) + 2*sum(ksx(2:end-1)));
     Tmito = (ksx/kwh + 1) ./ (Lh + (ksx_int/kwh));
-%     if (opt.highks)
-%         Tmito = (ksx/kwh) ./ (ksx_int/kwh);
-%     end
+     if (opt.highks)
+         Tmito = (ksx/kwh) ./ (ksx_int/kwh);
+     end
     
     Smito = (ksx/kwh) ./ (Lh + (ksx_int/kwh));    
     Smito_int = dx/2 * (Smito(1) + Smito(end) + 2*sum(Smito(2:end-1)));
