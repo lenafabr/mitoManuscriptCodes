@@ -1,4 +1,27 @@
 function [gluc,Tmito,Smito,Smito_int,normdtg,gluc_init,opt,xpos,lmdh,ftc] = runiterativesims(options)
+% This code runs iterative calculations to find the steady-state
+% distribution of mitochondria and glucose, for localized glucose entry
+% as in Fig 3 of Agrawal, Pekkurnaz, Koslover, eLife 2018
+% inputs: a structure called options that can overwrite any of
+% the default input params defined below
+% outputs: 
+% gluc = nx1 vector, values of glucose concentration at all spatial points
+% Tmito = total mitochondria linear density
+% Smito = stationary mitochondria linear density
+% Smito_int = integral of stationary mito density
+% normdtg = how close to convergence it got
+% gluc_init = initial glucose concentration (calculated assuming uniform
+% mitos)
+% opt = structure containing all parameters used
+% xpos = spatial positions at which concentrations are evaluated
+% lmdh = dimensionless diffusive decay length
+% ftc = flag, >0 if failed to converge
+
+% Note: default glucose concentrations below are in mM. For generating the
+% figures in the manuscript, it is recommended to convert to units of
+% #/um^3. See Figure 3- source data 1 for the parameters used to generate
+% the figure.
+
 %% set up default simulation parameters
 
 opt = struct();
